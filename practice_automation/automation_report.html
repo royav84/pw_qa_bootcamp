@@ -1,0 +1,160 @@
+
+<html>
+
+<head>
+
+    <title>Automation Practice Report</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .suite-card {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            padding: 20px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .PASSED {
+            border-left: 10px solid green;
+        }
+
+        .FAILED {
+            border-left: 10px solid red;
+        }
+
+        .ERROR {
+            border-left: 10px solid orange;
+        }
+
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .PASSED_TEXT {
+            color: green;
+        }
+
+        .FAILED_TEXT {
+            color: red;
+        }
+
+        .ERROR_TEXT {
+            color: orange;
+        }
+
+        .output-line {
+            background: #f7f7f7;
+            padding: 8px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-family: Consolas;
+            white-space: pre-wrap;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Automation Practice Report</h1>
+
+    <div class="summary">
+
+        <h2>Execution Summary</h2>
+
+        <p><strong>Execution Time:</strong> 2026-05-11 10:19:47</p>
+
+        <p><strong>Total Suites:</strong> 3</p>
+
+        <p><strong>Passed Suites:</strong> 2</p>
+
+        <p><strong>Failed Suites:</strong> 1</p>
+
+    </div>
+
+
+
+    <div class="suite-card FAILED">
+
+        <h2>CSV Column Validation</h2>
+
+        <div class="status FAILED_TEXT">
+
+            Final Status: FAILED
+
+        </div>
+
+        <h3>Execution Output:</h3>
+
+    
+
+        <div class="output-line">
+            FAIL - File not found
+        </div>
+
+        </div>
+
+    <div class="suite-card PASSED">
+
+        <h2>URL Status Validation</h2>
+
+        <div class="status PASSED_TEXT">
+
+            Final Status: PASSED
+
+        </div>
+
+        <h3>Execution Output:</h3>
+
+    </div>
+
+    <div class="suite-card PASSED">
+
+        <h2>CSV Report Validation</h2>
+
+        <div class="status PASSED_TEXT">
+
+            Final Status: PASSED
+
+        </div>
+
+        <h3>Execution Output:</h3>
+
+    
+
+        <div class="output-line">
+            ========== CSV REPORT VALIDATION ==========
+        </div>
+
+        
+
+        <div class="output-line">
+            Checking file: bad_header_report.csv
+        </div>
+
+        </div>
+
+</body>
+</html>
+
