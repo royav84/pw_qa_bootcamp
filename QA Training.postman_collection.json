@@ -1,0 +1,312 @@
+{
+  "info": {
+    "_postman_id": "ad7ede4a-c15d-4883-bb87-d78d3fb1d273",
+    "name": "QA Training",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10652344",
+    "_collection_link": "https://go.postman.co/collection/10652344-ad7ede4a-c15d-4883-bb87-d78d3fb1d273?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get All Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "const users = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Response body is an array\", function () {\r",
+              "    pm.expect(users).to.be.an('array');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response has 10 users\", function () {\r",
+              "    pm.expect(users).to.have.lengthOf(10);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "packages": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Single User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200)});\r",
+              "\r",
+              "pm.test(\"Response is an object\", function () {\r",
+              "    pm.expect(pm.response.json()).to.be.an('object');\r",
+              "})\r",
+              "\r",
+              "const json = pm.response.json()\r",
+              "pm.test(\"The user has a field called email\", function(){\r",
+              "    pm.expect(json).to.have.property('email')\r",
+              "})\r",
+              "\r",
+              "pm.test(\"The user's email is correct\", function(){\r",
+              "    pm.expect(json.email).not.to.be.empty})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.expect(pm.response.code).to.eql(201)});\r",
+              "\r",
+              "const json = pm.response.json();\r",
+              "pm.test(\"Response has a field called id\", function(){\r",
+              "    pm.expect(json).to.have.property('id')});\r",
+              "\r",
+              "pm.test(\"name in the response equals Roi Avital\", function(){\r",
+              "    pm.expect(json.name).to.eql('Roi Avital')})\r",
+              "\r",
+              "pm.collectionVariables.set(\"userId\", json.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Roi Avital\",\r\n  \"email\": \"roi@test.com\",\r\n  \"username\": \"roi_qa\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.expect(pm.response.code).to.equal(200)",
+              "})",
+              "",
+              "const json = pm.response.json()",
+              "pm.test(\"User ID is correct\", function () {",
+              "    pm.expect(json.id).to.eql(Number(pm.collectionVariables.get(\"userId\")))",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/{{userId}}",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{userId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Non Existent User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function (){\r",
+              "    pm.expect(pm.response.code).to.eql(404)\r",
+              "})\r",
+              "\r",
+              "const responseBody = pm.response.json()\r",
+              "pm.test(\"Response body is empty\", function(){\r",
+              "    pm.expect(responseBody).to.eql({})\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/abc",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "abc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Negative - Invalid User ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 404\", function (){\r",
+              "    pm.expect(pm.response.code).to.eql(404)\r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/{{invalidId}}",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "{{invalidId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "userId",
+      "value": ""
+    }
+  ]
+}

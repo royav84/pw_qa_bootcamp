@@ -26,9 +26,9 @@ h1 {
 
 .suite {
     background: white;
-    border-radius: 10px;
-    margin-bottom: 30px;
     padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
 }
 
@@ -44,17 +44,6 @@ h1 {
     border-left: 10px solid orange;
 }
 
-.suite-title {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-.suite-status {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
@@ -62,7 +51,7 @@ table {
 }
 
 th {
-    background-color: #333;
+    background: #333;
     color: white;
     padding: 12px;
     text-align: left;
@@ -96,13 +85,25 @@ td {
 
 <h2>Execution Summary</h2>
 
-<p><strong>Execution Time:</strong> 2026-05-11 11:04:17</p>
+<p>
+<strong>Execution Time:</strong>
+2026-05-13 11:21:01
+</p>
 
-<p><strong>Total Suites:</strong> 3</p>
+<p>
+<strong>Total Suites:</strong>
+3
+</p>
 
-<p><strong>Passed Suites:</strong> 2</p>
+<p>
+<strong>Passed Suites:</strong>
+2
+</p>
 
-<p><strong>Failed Suites:</strong> 1</p>
+<p>
+<strong>Failed Suites:</strong>
+1
+</p>
 
 </div>
 
@@ -110,13 +111,9 @@ td {
 
     <div class="suite PASSED">
 
-    <div class="suite-title">
-        CSV Column Validation
-    </div>
+    <h2>CSV Column Validation</h2>
 
-    <div class="suite-status">
-        Final Status: PASSED
-    </div>
+    <h3>Final Status: PASSED</h3>
 
     <table>
 
@@ -131,27 +128,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                CSV Structure Validation
-            </td>
-
             <td>
-                
+                <strong>CSV Structure Validation</strong><br>
+                Validate CSV file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate CSV file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -171,7 +151,10 @@ td {
 
         <tr>
 
-            <td>Validate CSV header structure</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate CSV header structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -191,7 +174,10 @@ td {
 
         <tr>
 
-            <td>Validate CSV column count</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate CSV column count
+            </td>
 
             <td class="pass">
                 PASS
@@ -211,7 +197,10 @@ td {
 
         <tr>
 
-            <td>Validate CSV contains data rows</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate CSV contains data rows
+            </td>
 
             <td class="pass">
                 PASS
@@ -231,7 +220,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 structure</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 2 structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -251,7 +243,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 email format</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 2 email format
+            </td>
 
             <td class="pass">
                 PASS
@@ -271,7 +266,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 3 structure</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 3 structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -291,7 +289,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 3 email format</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 3 email format
+            </td>
 
             <td class="pass">
                 PASS
@@ -311,7 +312,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 4 structure</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 4 structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -331,7 +335,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 4 email format</td>
+            <td>
+                <strong>CSV Structure Validation</strong><br>
+                Validate Row 4 email format
+            </td>
 
             <td class="pass">
                 PASS
@@ -357,13 +364,9 @@ td {
 
     <div class="suite PASSED">
 
-    <div class="suite-title">
-        URL Status Validation
-    </div>
+    <h2>URL Status Validation</h2>
 
-    <div class="suite-status">
-        Final Status: PASSED
-    </div>
+    <h3>Final Status: PASSED</h3>
 
     <table>
 
@@ -375,6 +378,98 @@ td {
     </tr>
 
     
+
+        <tr>
+
+            <td>
+                <strong>Google Homepage Returns 200</strong><br>
+                Validate URL response status
+            </td>
+
+            <td class="pass">
+                PASS
+            </td>
+
+            <td>
+                N/A
+            </td>
+
+            <td>
+                Expected: 200, Actual: 200
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+                <strong>GitHub Homepage Returns 200</strong><br>
+                Validate URL response status
+            </td>
+
+            <td class="pass">
+                PASS
+            </td>
+
+            <td>
+                N/A
+            </td>
+
+            <td>
+                Expected: 200, Actual: 200
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+                <strong>Microsoft Homepage Returns 200</strong><br>
+                Validate URL response status
+            </td>
+
+            <td class="pass">
+                PASS
+            </td>
+
+            <td>
+                N/A
+            </td>
+
+            <td>
+                Expected: 200, Actual: 200
+            </td>
+
+        </tr>
+
+        
+
+        <tr>
+
+            <td>
+                <strong>Wikipedia Returns 403</strong><br>
+                Validate URL response status
+            </td>
+
+            <td class="pass">
+                PASS
+            </td>
+
+            <td>
+                N/A
+            </td>
+
+            <td>
+                Expected: 403, Actual: 403
+            </td>
+
+        </tr>
+
+        
 
     </table>
 
@@ -384,13 +479,9 @@ td {
 
     <div class="suite FAILED">
 
-    <div class="suite-title">
-        CSV Report Validation
-    </div>
+    <h2>CSV Report Validation</h2>
 
-    <div class="suite-status">
-        Final Status: FAILED
-    </div>
+    <h3>Final Status: FAILED</h3>
 
     <table>
 
@@ -405,27 +496,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                bad_header_report.csv
-            </td>
-
             <td>
-                
+                <strong>bad_header_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -445,7 +519,10 @@ td {
 
         <tr>
 
-            <td>Validate report header structure</td>
+            <td>
+                <strong>bad_header_report.csv</strong><br>
+                Validate report header structure
+            </td>
 
             <td class="fail">
                 FAIL
@@ -456,7 +533,7 @@ td {
             </td>
 
             <td>
-                
+                Actual Header: ['identifier', 'fullname', 'mail']
             </td>
 
         </tr>
@@ -465,27 +542,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                broken_columns_report.csv
-            </td>
-
             <td>
-                
+                <strong>broken_columns_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -505,7 +565,10 @@ td {
 
         <tr>
 
-            <td>Validate report header structure</td>
+            <td>
+                <strong>broken_columns_report.csv</strong><br>
+                Validate report header structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -525,7 +588,10 @@ td {
 
         <tr>
 
-            <td>Validate report contains data rows</td>
+            <td>
+                <strong>broken_columns_report.csv</strong><br>
+                Validate report contains data rows
+            </td>
 
             <td class="pass">
                 PASS
@@ -545,7 +611,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 column count</td>
+            <td>
+                <strong>broken_columns_report.csv</strong><br>
+                Validate Row 2 column count
+            </td>
 
             <td class="fail">
                 FAIL
@@ -556,7 +625,7 @@ td {
             </td>
 
             <td>
-                
+                Actual Row: ['1', 'Roi']
             </td>
 
         </tr>
@@ -565,27 +634,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                empty_data_report.csv
-            </td>
-
             <td>
-                
+                <strong>empty_data_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -605,7 +657,10 @@ td {
 
         <tr>
 
-            <td>Validate report header structure</td>
+            <td>
+                <strong>empty_data_report.csv</strong><br>
+                Validate report header structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -625,7 +680,10 @@ td {
 
         <tr>
 
-            <td>Validate report contains data rows</td>
+            <td>
+                <strong>empty_data_report.csv</strong><br>
+                Validate report contains data rows
+            </td>
 
             <td class="fail">
                 FAIL
@@ -636,7 +694,7 @@ td {
             </td>
 
             <td>
-                
+                Only header row exists
             </td>
 
         </tr>
@@ -645,27 +703,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                empty_file_report.csv
-            </td>
-
             <td>
-                
+                <strong>empty_file_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="fail">
                 FAIL
@@ -676,7 +717,7 @@ td {
             </td>
 
             <td>
-                
+                File contains 0 rows
             </td>
 
         </tr>
@@ -685,27 +726,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                invalid_email_report.csv
-            </td>
-
             <td>
-                
+                <strong>invalid_email_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -725,7 +749,10 @@ td {
 
         <tr>
 
-            <td>Validate report header structure</td>
+            <td>
+                <strong>invalid_email_report.csv</strong><br>
+                Validate report header structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -745,7 +772,10 @@ td {
 
         <tr>
 
-            <td>Validate report contains data rows</td>
+            <td>
+                <strong>invalid_email_report.csv</strong><br>
+                Validate report contains data rows
+            </td>
 
             <td class="pass">
                 PASS
@@ -765,7 +795,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 column count</td>
+            <td>
+                <strong>invalid_email_report.csv</strong><br>
+                Validate Row 2 column count
+            </td>
 
             <td class="pass">
                 PASS
@@ -785,7 +818,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 email format</td>
+            <td>
+                <strong>invalid_email_report.csv</strong><br>
+                Validate Row 2 email format
+            </td>
 
             <td class="fail">
                 FAIL
@@ -796,7 +832,7 @@ td {
             </td>
 
             <td>
-                
+                Actual Email: roi-test.com
             </td>
 
         </tr>
@@ -805,27 +841,10 @@ td {
 
         <tr>
 
-            <td>TEST CASE</td>
-
-            <td class="">
-                valid_report.csv
-            </td>
-
             <td>
-                
+                <strong>valid_report.csv</strong><br>
+                Validate report file is not empty
             </td>
-
-            <td>
-                
-            </td>
-
-        </tr>
-
-        
-
-        <tr>
-
-            <td>Validate report file is not empty</td>
 
             <td class="pass">
                 PASS
@@ -845,7 +864,10 @@ td {
 
         <tr>
 
-            <td>Validate report header structure</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate report header structure
+            </td>
 
             <td class="pass">
                 PASS
@@ -865,7 +887,10 @@ td {
 
         <tr>
 
-            <td>Validate report contains data rows</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate report contains data rows
+            </td>
 
             <td class="pass">
                 PASS
@@ -885,7 +910,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 column count</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate Row 2 column count
+            </td>
 
             <td class="pass">
                 PASS
@@ -905,7 +933,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 2 email format</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate Row 2 email format
+            </td>
 
             <td class="pass">
                 PASS
@@ -925,7 +956,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 3 column count</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate Row 3 column count
+            </td>
 
             <td class="pass">
                 PASS
@@ -945,7 +979,10 @@ td {
 
         <tr>
 
-            <td>Validate Row 3 email format</td>
+            <td>
+                <strong>valid_report.csv</strong><br>
+                Validate Row 3 email format
+            </td>
 
             <td class="pass">
                 PASS

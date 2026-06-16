@@ -1,0 +1,7 @@
+[
+  { "invalidId": -1 },
+  { "invalidId": 0 },
+  { "invalidId": 9999 },
+  { "invalidId": "abc" },
+  { "invalidId": 999999999 }
+]

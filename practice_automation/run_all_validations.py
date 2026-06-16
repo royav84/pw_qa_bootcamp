@@ -1,11 +1,23 @@
+# Import subprocess module
 import subprocess
+
+# Import datetime module
 from datetime import datetime
+
+# Import os module
 import os
 
+# Import sys module
+# Used for current Python interpreter
+import sys
+
+
+# List containing all automation suites
 TESTS = [
 
     {
         "name": "CSV Column Validation",
+
         "path": (
             "practice_automation/"
             "csv_column_validation/check_columns.py"
@@ -14,6 +26,7 @@ TESTS = [
 
     {
         "name": "URL Status Validation",
+
         "path": (
             "practice_automation/"
             "url_status_validation/url_status_check.py"
@@ -22,6 +35,7 @@ TESTS = [
 
     {
         "name": "CSV Report Validation",
+
         "path": (
             "practice_automation/"
             "csv_report_validation/scan_reports.py"
@@ -29,24 +43,46 @@ TESTS = [
     }
 ]
 
+
+# List storing suite execution results
 results = []
 
+
+# Print execution title
 print("\n========== AUTOMATION PRACTICE SUITE ==========\n")
+
+
+# Get current Python interpreter
+python_executable = sys.executable
+
+
+print(f"Using Python Interpreter: {python_executable}")
+
+
+# ===== EXECUTE SUITES =====
 
 for test in TESTS:
 
     test_name = test["name"]
+
     test_path = test["path"]
 
     try:
 
         result = subprocess.run(
-            ["python", test_path],
+
+            [python_executable, test_path],
+
             capture_output=True,
+
             text=True
         )
 
-        output = result.stdout
+        output = result.stdout + "\n" + result.stderr
+
+        print(f"\n===== DEBUG OUTPUT: {test_name} =====")
+
+        print(output)
 
         if "| FAIL" in output:
 
@@ -57,34 +93,48 @@ for test in TESTS:
             final_status = "PASSED"
 
         results.append({
+
             "suite_name": test_name,
+
             "suite_status": final_status,
+
             "output": output
         })
 
     except Exception as error:
 
         results.append({
+
             "suite_name": test_name,
+
             "suite_status": "ERROR",
+
             "output": str(error)
         })
+
 
 # ===== SUMMARY =====
 
 passed_count = len([
+
     result for result in results
+
     if result["suite_status"] == "PASSED"
 ])
 
 failed_count = len([
+
     result for result in results
+
     if result["suite_status"] != "PASSED"
 ])
 
-execution_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+execution_time = datetime.now().strftime(
+    "%Y-%m-%d %H:%M:%S"
+)
 
-# ===== HTML =====
+
+# ===== HTML REPORT =====
 
 html_content = f"""
 <html>
@@ -114,9 +164,9 @@ h1 {{
 
 .suite {{
     background: white;
-    border-radius: 10px;
-    margin-bottom: 30px;
     padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
 }}
 
@@ -132,17 +182,6 @@ h1 {{
     border-left: 10px solid orange;
 }}
 
-.suite-title {{
-    font-size: 28px;
-    margin-bottom: 10px;
-}}
-
-.suite-status {{
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}}
-
 table {{
     width: 100%;
     border-collapse: collapse;
@@ -150,7 +189,7 @@ table {{
 }}
 
 th {{
-    background-color: #333;
+    background: #333;
     color: white;
     padding: 12px;
     text-align: left;
@@ -160,6 +199,7 @@ td {{
     border: 1px solid #ddd;
     padding: 10px;
     vertical-align: top;
+    white-space: pre-line;
 }}
 
 .pass {{
@@ -184,37 +224,48 @@ td {{
 
 <h2>Execution Summary</h2>
 
-<p><strong>Execution Time:</strong> {execution_time}</p>
+<p>
+<strong>Execution Time:</strong>
+{execution_time}
+</p>
 
-<p><strong>Total Suites:</strong> {len(results)}</p>
+<p>
+<strong>Total Suites:</strong>
+{len(results)}
+</p>
 
-<p><strong>Passed Suites:</strong> {passed_count}</p>
+<p>
+<strong>Passed Suites:</strong>
+{passed_count}
+</p>
 
-<p><strong>Failed Suites:</strong> {failed_count}</p>
+<p>
+<strong>Failed Suites:</strong>
+{failed_count}
+</p>
 
 </div>
 
 """
+
 
 # ===== SUITES =====
 
 for result in results:
 
     suite_name = result["suite_name"]
+
     suite_status = result["suite_status"]
+
     output = result["output"]
 
     html_content += f"""
 
     <div class="suite {suite_status}">
 
-    <div class="suite-title">
-        {suite_name}
-    </div>
+    <h2>{suite_name}</h2>
 
-    <div class="suite-status">
-        Final Status: {suite_status}
-    </div>
+    <h3>Final Status: {suite_status}</h3>
 
     <table>
 
@@ -229,6 +280,8 @@ for result in results:
 
     output_lines = output.splitlines()
 
+    current_test_case = ""
+
     for line in output_lines:
 
         clean_line = line.strip()
@@ -241,13 +294,19 @@ for result in results:
 
         parts = clean_line.split("|", maxsplit=3)
 
-        test_name = ""
+        if parts[0].strip() == "TEST CASE":
+
+            if len(parts) >= 2:
+
+                current_test_case = parts[1].strip()
+
+            continue
+
+        validation_name = parts[0].strip()
+
         result_text = ""
         reproduction_steps = ""
         failure_details = ""
-
-        if len(parts) >= 1:
-            test_name = parts[0].strip()
 
         if len(parts) >= 2:
             result_text = parts[1].strip()
@@ -272,7 +331,10 @@ for result in results:
 
         <tr>
 
-            <td>{test_name}</td>
+            <td>
+                <strong>{current_test_case}</strong><br>
+                {validation_name}
+            </td>
 
             <td class="{css_class}">
                 {result_text}
@@ -298,8 +360,6 @@ for result in results:
 
     """
 
-# ===== CLOSE HTML =====
-
 html_content += """
 
 </body>
@@ -307,17 +367,16 @@ html_content += """
 
 """
 
-# ===== REPORTS FOLDER =====
-
-REPORTS_FOLDER = "practice_automation/test_reports"
+REPORTS_FOLDER = (
+    "practice_automation/test_reports"
+)
 
 os.makedirs(REPORTS_FOLDER, exist_ok=True)
-
-# ===== REMOVE OLD newest_ =====
 
 existing_reports = [
 
     file_name for file_name in os.listdir(REPORTS_FOLDER)
+
     if file_name.endswith(".html")
 ]
 
@@ -325,49 +384,58 @@ for file_name in existing_reports:
 
     if file_name.startswith("newest_"):
 
-        old_path = os.path.join(REPORTS_FOLDER, file_name)
+        old_path = os.path.join(
+            REPORTS_FOLDER,
+            file_name
+        )
 
-        new_name = file_name.replace("newest_", "", 1)
+        new_name = file_name.replace(
+            "newest_",
+            "",
+            1
+        )
 
-        new_path = os.path.join(REPORTS_FOLDER, new_name)
+        new_path = os.path.join(
+            REPORTS_FOLDER,
+            new_name
+        )
 
         os.rename(old_path, new_path)
 
-# ===== REFRESH =====
-
 existing_reports = [
 
-    file_name for file_name in os.listdir(REPORTS_FOLDER)
+    os.path.join(REPORTS_FOLDER, file_name)
+
+    for file_name in os.listdir(REPORTS_FOLDER)
+
     if file_name.endswith(".html")
 ]
 
-existing_reports.sort()
+existing_reports.sort(
 
-# ===== KEEP LAST 5 =====
+    key=os.path.getctime
+)
 
 while len(existing_reports) >= 5:
 
     oldest_report = existing_reports[0]
 
-    oldest_path = os.path.join(
-        REPORTS_FOLDER,
-        oldest_report
-    )
-
-    os.remove(oldest_path)
+    os.remove(oldest_report)
 
     existing_reports.pop(0)
 
-# ===== SAVE REPORT =====
-
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+timestamp = datetime.now().strftime(
+    "%Y-%m-%d_%H-%M-%S"
+)
 
 report_name = (
     f"newest_automation_report_{timestamp}.html"
 )
 
 report_file = os.path.join(
+
     REPORTS_FOLDER,
+
     report_name
 )
 
@@ -375,4 +443,6 @@ with open(report_file, "w", encoding="utf-8") as file:
 
     file.write(html_content)
 
-print(f"\nHTML report created: {report_file}")
+print(
+    f"\nHTML report created: {report_file}"
+)
