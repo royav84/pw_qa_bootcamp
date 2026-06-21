@@ -8,6 +8,187 @@
   },
   "item": [
     {
+      "name": "CRUD Flow",
+      "item": [
+        {
+          "name": "1 - Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(201);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"name equals to Roi QA\", function(){\r",
+                  "    pm.expect(json.name).to.eql(\"Roi QA\");\r",
+                  "})\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"crudUserId\", json.id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Roi QA\",\r\n  \"email\": \"roi.qa@test.com\",\r\n  \"username\": \"roi_qa\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2 - Get User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"name is a string and not empty\", function(){\r",
+                  "    pm.expect(json.name).to.be.a('string');\r",
+                  "    pm.expect(json.name).to.not.be.empty;\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3 - Update User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response body has correct name\", function () {\r",
+                  "    pm.expect(json.name).to.eql(\"Roi QA Updated\");\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Roi QA Updated\",\r\n  \"email\": \"roi.updated@test.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4 - Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "})\r",
+                  "\r",
+                  "pm.test(\"Response body is empty\", function () {\r",
+                  "    pm.expect(json).to.eql({});\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Get All Users",
       "event": [
         {
@@ -26,7 +207,11 @@
               "\r",
               "pm.test(\"Response has 10 users\", function () {\r",
               "    pm.expect(users).to.have.lengthOf(10);\r",
-              "});"
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 200 ms\", function(){\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(200); // Response time should be less than 200ms\r",
+              "})"
             ],
             "type": "text/javascript",
             "packages": {},
@@ -36,8 +221,12 @@
         {
           "listen": "prerequest",
           "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
             "packages": {},
-            "type": "text/javascript"
+            "requests": {}
           }
         }
       ],
@@ -45,12 +234,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/users",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
             "users"
@@ -92,12 +278,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users/1",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/users/1",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
             "users",
@@ -145,12 +328,9 @@
           }
         },
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/users",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
             "users"
@@ -166,13 +346,13 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.expect(pm.response.code).to.equal(200)",
+              "pm.test(\"Status code is 404\", function () {",
+              "    pm.expect(pm.response.code).to.equal(404)",
               "})",
               "",
               "const json = pm.response.json()",
-              "pm.test(\"User ID is correct\", function () {",
-              "    pm.expect(json.id).to.eql(Number(pm.collectionVariables.get(\"userId\")))",
+              "pm.test(\"Response body is empty\", function () {",
+              "    pm.expect(json).to.eql({})",
               "})"
             ],
             "type": "text/javascript",
@@ -185,15 +365,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users/{{userId}}",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/{{userId}}",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
-            "users",
             "{{userId}}"
           ]
         }
@@ -226,12 +402,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users/abc",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/users/abc",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
             "users",
@@ -263,18 +436,169 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://jsonplaceholder.typicode.com/users/{{invalidId}}",
-          "protocol": "https",
+          "raw": "{{baseUrl}}/users/{{invalidId}}",
           "host": [
-            "jsonplaceholder",
-            "typicode",
-            "com"
+            "{{baseUrl}}"
           ],
           "path": [
             "users",
             "{{invalidId}}"
           ]
         }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Response body has correct name\", function () {\r",
+              "    pm.expect(pm.response.json().name).to.eql(\"Roi Avital Updated\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Response body has correct email\", function () {\r",
+              "    pm.expect(pm.response.json().email).to.eql(\"roi.updated@test.com\");\r",
+              "})\r",
+              "    "
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Roi Avital Updated\",\r\n  \"email\": \"roi.updated@test.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Response body is empty\", function () {\r",
+              "    pm.expect(pm.response.json()).to.eql({})\r",
+              "})\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Swagger - Create Pet",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json()\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"name equals to Cat\", function () {\r",
+              "    pm.expect(json.name).to.eql(\"Cat\") \r",
+              "})\r",
+              "\r",
+              "pm.test(\"id is a number and not empty\", function () {\r",
+              "    pm.expect(json.id).to.be.a('number')\r",
+              "    pm.expect(json.id).to.not.be.undefined;\r",
+              "\r",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Cat\",\r\n  \"photoUrls\": [\"string\"],\r\n  \"status\": \"available\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://petstore.swagger.io/v2/pet",
+          "protocol": "https",
+          "host": [
+            "petstore",
+            "swagger",
+            "io"
+          ],
+          "path": [
+            "v2",
+            "pet"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Swagger - Get Pet By ID",
+      "request": {
+        "method": "GET",
+        "header": []
       },
       "response": []
     }
@@ -306,6 +630,22 @@
   "variable": [
     {
       "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "petId",
+      "value": ""
+    },
+    {
+      "key": "petBaseUrl",
+      "value": ""
+    },
+    {
+      "key": "crudUserId",
+      "value": ""
+    },
+    {
+      "key": "baseUrl",
       "value": ""
     }
   ]
